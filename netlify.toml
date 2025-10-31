@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  directory = "netlify/functions"
+  external_node_modules = ["stripe", "mongodb"]
+
+# Stripe webhook endpoint (handled inside function, no method here)
+[functions."stripe-webhook"]
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
